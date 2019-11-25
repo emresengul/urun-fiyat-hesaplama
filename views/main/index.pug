@@ -1,0 +1,131 @@
+doctype html
+head
+  title Contact V10
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  style.
+    #kazanc {
+    background-color: red;
+    color: white;
+    }
+    #kazanc-miktar {
+    color: red;
+    font-weight: bold;
+    }
+  // ===============================================================================================
+  link(rel='icon' type='image/png' href='images/icons/favicon.ico')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/bootstrap/css/bootstrap.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/animate/animate.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/css-hamburgers/hamburgers.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/animsition/css/animsition.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/select2/select2.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='vendor/daterangepicker/daterangepicker.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='css/util.css')
+  link(rel='stylesheet' type='text/css' href='css/main.css')
+  // ===============================================================================================
+  link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+if (action !== "undefined"  && action=== "sil")
+    div.alert.alert-success Ürün Silindi
+if (action !== "undefined"  && action=== "hata")
+    div.alert.alert-danger Şifre Hatalı
+.container-contact100
+  .wrap-contact100
+    form(action="yeni-urun" method="POST").contact100-form.validate-form
+      span.contact100-form-title
+        | &Uuml;r&uuml;n Kazan&ccedil; Hesaplama
+      .wrap-input100.validate-input(data-validate='Lütfen ürünün adını giriniz')
+        input.input100(type='text' name='name' placeholder='Ürün Adı')
+        span.focus-input100
+      .wrap-input100.validate-input(data-validate='Lütfen ürünün alış fiyatını giriniz')
+        input.input100(type='number' name='alis' step="any" placeholder='Ürün Alış Fiyatı' )
+        span.focus-input100
+      .wrap-input100.validate-input(data-validate='Lütfen ürünün satış fiyatını giriniz')
+        input.input100(type='number' name='satis' step="any" placeholder='Ürün Satış Fiyatı')
+        span.focus-input100
+      .wrap-input100()
+        input.input100(type='number' name='affilate' step="any" placeholder='Ürün Affilate Yüzdesi')
+        span.focus-input100
+      .wrap-input100.validate-input(data-validate='Lütfen sadece sayı olarak giriniz')
+        input.input100(type='number' name='pos' step="any" placeholder='POS Sağlayıcı Komisyonu')
+        span.focus-input100
+      .wrap-input100.validate-input(data-validate='Lütfen sadece sayı olarak giriniz')
+        input.input100(type='number' name='kdv' step="any" placeholder='Ürün KDV Yüzdesi')
+        span.focus-input100
+      .wrap-input100.validate-input(data-validate='Şifre hatalı')
+        input.input100(type='password' name='sifre' placeholder='Şifre')
+        span.focus-input100
+      .container-contact100-form-btn
+        button.contact100-form-btn
+          span
+            i.fa.fa-paper-plane-o.m-r-6(aria-hidden='true')
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Hesapla
+table.table.table-striped(border='1')
+  thead
+    tr
+      th(scope='col') &Uuml;r&uuml;n Numara
+      th(scope='col' width='290') &Uuml;r&uuml;n Ad&imath;
+      th(scope='col' width='30') Sat&imath;&scedil; Fiyat&imath;
+      th(scope='col' width='30') Al&imath;&scedil; Fiyat&imath;
+      th(scope='col' width='30') Yay&imath;nc&imath; Komisyon
+      th(scope='col' width='30') Pos Komisyon
+      th(scope='col' width='30') KDV
+      th#kazanc(scope='col' width='125') KAZAN&Ccedil;
+  tbody
+  each urun in product
+    tr
+      th(scope='row' width='80')= urun.id
+      td= urun.urunadi
+      td= urun.urunsatisfiyati
+      td= urun.urunalisfiyati
+      td= urun.urunaffilate
+      td= urun.urunposkomisyon
+      td= urun.urunkdv
+      td#kazanc-miktar= (urun.urunkazanc).toLocaleString()
+      td(width='50')
+        form(action="/sil" method="POST")
+          input(type='hidden' name='silinecekurun' value=`${urun.id}`)
+          input(type='password' name='silineceksifre')
+          button.btn.btn-danger.btn-sm(type='submit') Sil
+h5 Toplam Satış: #{toplamsatis.toLocaleString()}
+h5 Toplam Kazanç: #{toplamKazanc.toLocaleString()}
+h5 Toplam Alış: #{toplamalis.toLocaleString()}
+h5 Toplam Ürün: #{toplamurun}
+br
+br
+br
+br
+#dropDownSelect1
+// ===============================================================================================
+script(src='vendor/jquery/jquery-3.2.1.min.js')
+// ===============================================================================================
+script(src='vendor/animsition/js/animsition.min.js')
+// ===============================================================================================
+script(src='vendor/bootstrap/js/popper.js')
+script(src='vendor/bootstrap/js/bootstrap.min.js')
+// ===============================================================================================
+script(src='vendor/select2/select2.min.js')
+// ===============================================================================================
+script(src='vendor/daterangepicker/moment.min.js')
+script(src='vendor/daterangepicker/daterangepicker.js')
+// ===============================================================================================
+script(src='vendor/countdowntime/countdowntime.js')
+// ===============================================================================================
+script(src='js/main.js')
+// Global site tag (gtag.js) - Google Analytics
+script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-23581568-13')
+script.
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-23581568-13');
